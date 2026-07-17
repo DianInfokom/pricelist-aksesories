@@ -1,134 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>Pricelist Printer & Accessories</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricelist Aksesories - PT Infokom Putra Kencana</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background: #f5f7fb;
-        }
+<style>
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f5f5;
+}
 
-        h1 {
-            color: #005baa;
-        }
+header{
+    background:#0d6efd;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
 
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
+input{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    margin-bottom:20px;
+}
 
-        th {
-            background: #005baa;
-            color: white;
-        }
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+}
 
-        td, th {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
+th{
+    background:#0d6efd;
+    color:white;
+    padding:12px;
+}
 
-        .call {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+td{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    color:#777;
+}
+</style>
+
 </head>
 
 <body>
 
-<h1>Pricelist Printer & Accessories</h1>
-<p>Update Harga: 15 Juli 2026</p>
+<header>
+<h1>PT Infokom Putra Kencana</h1>
+<p>Pricelist Aksesories</p>
+</header>
 
-<input type="text" id="search" placeholder="Cari produk...">
+<div class="container">
+
+<input type="text" placeholder="Cari Produk...">
 
 <table>
-<thead>
+
 <tr>
-<th>Brand</th>
-<th>Kategori</th>
 <th>Produk</th>
 <th>Harga</th>
 </tr>
-</thead>
 
-<tbody id="data">
-</tbody>
+<tr>
+<td>Mouse Logitech B100</td>
+<td>Rp100.000</td>
+</tr>
+
+<tr>
+<td>Keyboard Logitech K120</td>
+<td>Rp150.000</td>
+</tr>
 
 </table>
 
+</div>
 
-<script>
-
-const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRgXpStc2KxTmNB3HjLE_M-ZNfbv5QqEnflZtG-A5frwwI_-HSnRWTAFeWNg0lZ78hXh0YGHKOXK8it/pub?gid=0&single=true&output=csv";
-
-
-fetch(csvURL)
-.then(response => response.text())
-.then(data => {
-
-let rows = data.split("\n").slice(1);
-
-let table = "";
-
-rows.forEach(row => {
-
-let col = row.split(",");
-
-if(col.length >= 4){
-
-let harga = col[3];
-
-table += `
-<tr>
-<td>${col[0]}</td>
-<td>${col[1]}</td>
-<td>${col[2]}</td>
-<td class="${harga.includes('CALL')?'call':''}">
-${harga}
-</td>
-</tr>
-`;
-
-}
-
-});
-
-document.getElementById("data").innerHTML = table;
-
-});
-
-
-document.getElementById("search").addEventListener("keyup", function(){
-
-let value = this.value.toLowerCase();
-
-let rows = document.querySelectorAll("#data tr");
-
-rows.forEach(row=>{
-
-row.style.display =
-row.innerText.toLowerCase().includes(value)
-? ""
-: "none";
-
-});
-
-});
-
-</script>
-
+<footer>
+© PT Infokom Putra Kencana
+</footer>
 
 </body>
 </html>
