@@ -1,108 +1,29 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pricelist Aksesories - PT Infokom Putra Kencana</title>
-
-<style>
-body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f5f5f5;
-}
-
-header{
-    background:#0d6efd;
-    color:white;
-    padding:20px;
-    text-align:center;
-}
-
-.container{
-    max-width:1000px;
-    margin:auto;
-    padding:20px;
-}
-
-input{
-    width:100%;
-    padding:12px;
-    font-size:16px;
-    border:1px solid #ccc;
-    border-radius:8px;
-    margin-bottom:20px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-}
-
-th{
-    background:#0d6efd;
-    color:white;
-    padding:12px;
-}
-
-td{
-    padding:10px;
-    border-bottom:1px solid #ddd;
-}
-
-footer{
-    text-align:center;
-    padding:20px;
-    color:#777;
-}
-</style>
-
-</head>
-
-<body>
-
-<header>
-<h1>PT Infokom Putra Kencana</h1>
-<p>Pricelist Aksesories</p>
-</header>
-
-<div class="container">
-
-<input type="text" placeholder="Cari Produk...">
-
-<table>
-
-<tr>
-<th>Produk</th>
-<th>Harga</th>
-</tr>
-
-<tr>
-<td>Mouse Logitech B100</td>
-<td>Rp100.000</td>
-</tr>
-
-<tr>
-<td>Keyboard Logitech K120</td>
-<td>Rp150.000</td>
-</tr>
-
-</table>
-
-</div>
-
-<footer>
-© PT Infokom Putra Kencana
-</footer>
 <script>
-const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRgXpStc2KxTmNB3HjLE_M-ZNfbv5QqEnflZtG-A5frwwI_-HSnRWTAFeWNg0lZ78hXh0YGHKOXK8it/pub?gid=0&single=true&output=csvUrl)
-  
-    fetch(csvUrl)
-    .then(response => response.text())
-  .then(data => {
-    console.log(data);
-  });
+const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRgXpStc2KxTmNB3HjLE_M-ZNfbv5QqEnflZtG-A5frwwI_-HSnRWTAFeWNg0lZ78hXh0YGHKOXK8it/pub?gid=0&single=true&output=csv";
+
+fetch(csvUrl)
+  .then(response => response.text())
+  .then(csv => {
+    const rows = csv.trim().split("\n");
+    const table = document.querySelector("table");
+
+    table.innerHTML = `
+      <tr>
+        <th>Produk</th>
+        <th>Harga</th>
+      </tr>
+    `;
+
+    rows.slice(1).forEach(row => {
+      const cols = row.split(",");
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${cols[0]}</td>
+        <td>${cols[1]}</td>
+      `;
+      table.appendChild(tr);
+    });
+  })
+  .catch(err => console.error(err));
 </script>
-</body>
-</html>
