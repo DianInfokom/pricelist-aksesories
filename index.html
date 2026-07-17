@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pricelist Printer & Accessories</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f7fb;
+        }
+
+        h1 {
+            color: #005baa;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: #005baa;
+            color: white;
+        }
+
+        td, th {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .call {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Pricelist Printer & Accessories</h1>
+<p>Update Harga: 15 Juli 2026</p>
+
+<input type="text" id="search" placeholder="Cari produk...">
+
+<table>
+<thead>
+<tr>
+<th>Brand</th>
+<th>Kategori</th>
+<th>Produk</th>
+<th>Harga</th>
+</tr>
+</thead>
+
+<tbody id="data">
+</tbody>
+
+</table>
+
+
+<script>
+
+const csvURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRgXpStc2KxTmNB3HjLE_M-ZNfbv5QqEnflZtG-A5frwwI_-HSnRWTAFeWNg0lZ78hXh0YGHKOXK8it/pub?gid=0&single=true&output=csv";
+
+
+fetch(csvURL)
+.then(response => response.text())
+.then(data => {
+
+let rows = data.split("\n").slice(1);
+
+let table = "";
+
+rows.forEach(row => {
+
+let col = row.split(",");
+
+if(col.length >= 4){
+
+let harga = col[3];
+
+table += `
+<tr>
+<td>${col[0]}</td>
+<td>${col[1]}</td>
+<td>${col[2]}</td>
+<td class="${harga.includes('CALL')?'call':''}">
+${harga}
+</td>
+</tr>
+`;
+
+}
+
+});
+
+document.getElementById("data").innerHTML = table;
+
+});
+
+
+document.getElementById("search").addEventListener("keyup", function(){
+
+let value = this.value.toLowerCase();
+
+let rows = document.querySelectorAll("#data tr");
+
+rows.forEach(row=>{
+
+row.style.display =
+row.innerText.toLowerCase().includes(value)
+? ""
+: "none";
+
+});
+
+});
+
+</script>
+
+
+</body>
+</html>
