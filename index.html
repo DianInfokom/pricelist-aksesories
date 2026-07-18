@@ -189,11 +189,19 @@ col=col.replace(/"/g,"");
 
 if(headers[index].toUpperCase()=="HARGA"){
 
-const angka=Number(col);
+    if(col.trim().toUpperCase()=="CALL"){
+        col="CALL";
+    }else{
 
-if(!isNaN(angka)){
-col=" "+angka.toLocaleString("id-ID");
-}
+        const angka=Number(col);
+
+        if(!isNaN(angka) && angka>0){
+            col="Rp "+angka.toLocaleString("id-ID");
+        }else{
+            col="";
+        }
+
+    }
 
 }
 
