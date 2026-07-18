@@ -186,29 +186,33 @@ let row="<tr>";
 
 cols.forEach((col,index)=>{
 
-col=col.replace(/"/g,"");
+    col = col.replace(/"/g,"");
 
-if(headers[index].toUpperCase()=="HARGA"){
+    if(headers[index].toUpperCase()=="HARGA"){
 
-    if(col.trim().toUpperCase()=="CALL"){
-        col="CALL";
-    }else{
+        if(col.trim().toUpperCase()=="CALL"){
 
-        const angka=Number(col);
+            col="CALL";
 
-        if(!isNaN(angka) && angka>0){
-            col="Rp "+angka.toLocaleString("id-ID");
-        }else{
+        }else if(col.trim()===""){
+
             col="";
+
+        }else{
+
+            const angka=Number(col);
+
+            if(!isNaN(angka) && angka>0){
+                col="Rp "+angka.toLocaleString("id-ID");
+            }else{
+                col="";
+            }
+
         }
 
     }
 
-}
-
-}
-
-row+=`<td>${col}</td>`;
+    row += `<td>${col}</td>`;
 
 });
 
