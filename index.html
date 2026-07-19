@@ -60,8 +60,6 @@ header{
     max-width:1200px;
     margin:auto;
     padding:20px;
-}
-.container{
     overflow-x:auto;
 }
 
@@ -78,18 +76,15 @@ table{
     border-collapse:separate;
     border-spacing:0 10px;
     background:transparent;
-}
-table{
     min-width:800px;
 }
+  
 tbody td{
     background:white;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
     transition:.3s;
 }
-tbody tr:hover{
-    transform:translateY(-3px);
-}
+
 tbody tr:hover{
     transform:scale(1.01);
     transition:.3s;
@@ -232,7 +227,7 @@ cols.forEach((col,index)=>{
 
     col = col.replace(/"/g,"");
 
-    if(headers[index].toUpperCase()=="HARGA"){
+    if(headers[index].trim().toUpperCase()=="HARGA"){
 
         if(col.trim().toUpperCase()=="CALL"){
 
